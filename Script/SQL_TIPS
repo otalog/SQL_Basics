@@ -9,3 +9,16 @@ WHERE COLUMN_NAME like '%proficiency%'
 --How to create a temp table 
 
 IF OBJECT_ID('tempdb..#ITS') IS NOT NULL				DROP TABLE #ITS
+
+
+---How to update a column that already exist
+UPDATE [NAP_Staging].[import].[ACARA_CodeFrame_Z]
+SET timestamp_created = GETDATE(),
+    timestamp_updated = GETDATE()
+WHERE timestamp_created IS NULL OR timestamp_updated IS NULL;
+
+
+--How to alter a table and add more columns
+ALTER TABLE [NAP_Staging].[import].[ACARA_CodeFrame_Z]
+ADD timestamps_created DATETIME DEFAULT GETDATE(),
+    timestamps_updated DATETIME DEFAULT GETDATE();
